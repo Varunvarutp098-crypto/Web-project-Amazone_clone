@@ -4,7 +4,7 @@ import{formatecurrency} from '../Scripts/utils/money.js';
 console.log('test suite: formatecurrencys');
 
 console.log('converts into dollers');
-if(formatecurrency(1276) === '12.76'){      // basic test case 
+if(formatecurrency(1267) === '12.67'){      // basic test case 
     console.log('passed');
 }else{
     console.log('failed');
