@@ -1,3 +1,9 @@
+import {cart, addtocart} from "../data/cart.js";
+import { products } from "../data/products.js";
+import { formatecurrency } from "./utils/money.js";
+
+hello();
+
 let productsHTML = ' '; 
 
 products.forEach((product) => {
@@ -21,7 +27,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            ${(product.priceCents / 100).toFixed(2) }
+            ${formatecurrency(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">
@@ -46,15 +52,38 @@ products.forEach((product) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart"
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>
     `;
 });
 
-console.log(productsHTML);
-
 document.querySelector('.js-products-grid').
 innerHTML = productsHTML;
 
+function updatecartquantity(){
+let cartquantity = 0;
+       cart.forEach((cartItem) => {
+        cartquantity += cartItem.quantity;
+       });
+
+       document.querySelector('.js-cart-quantity')
+       .innerHTML = cartquantity;
+
+       console.log(cart);
+       console.log(cartquantity);
+    };
+
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click',() => {
+       const productId =  button.dataset.productId;   // here productname as covert to productName called as kabeb case to camelCase
+       addtocart(productId);
+       updatecartquantity();
+ /* 
+  console.log('Button clicked!');
+  console.log(productName); */
+       });
+ });
